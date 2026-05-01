@@ -1,4 +1,4 @@
-# 🌉 Bridge Defect Detection System
+ # 🌉 Bridge Defect Detection System
 
 **AI-powered automated defect detection for bridge and civil infrastructure inspection — aligned with the EU-funded [STRUCTURE project](https://structure-project.eu) on UAV-based inspection and digital twin development.**
 
@@ -8,24 +8,15 @@
 
 > Upload a bridge inspection image or video. The system detects and localises defects in real time.
 
-![Demo placeholder — add a GIF of the app running here](docs/demo.gif)
+![Sample Detection](docs/sample_detection.jpg)
 
 ---
 
 ## What It Does
 
-This system uses a fine-tuned **YOLOv8** model to automatically detect and classify concrete defects on bridge surfaces from inspection images or UAV-captured video frames.
+This system uses a fine-tuned **YOLOv8** model to automatically detect and localise cracks in concrete bridge surfaces from inspection images or UAV-captured video frames.
 
-**Detects 6 defect classes** from the [CODEBRIM dataset](https://zenodo.org/record/2579133):
-
-| Class | Description |
-|---|---|
-| Crack | Surface and structural cracks |
-| Spalling | Concrete surface breakaway |
-| Corrosion | Rebar or surface oxidation |
-| Efflorescence | Salt deposit leaching |
-| Exposed Rebar | Visible reinforcement steel |
-| Background | Non-defect surface |
+**Detects crack defects** in concrete infrastructure surfaces, demonstrating the core AI perception layer of a UAV-based inspection pipeline.
 
 ---
 
@@ -42,7 +33,7 @@ This work directly mirrors the technical approach of the EU STRUCTURE project, w
 - **Model:** YOLOv8 (Ultralytics) — trained on synthetic concrete crack dataset
 - **App:** Streamlit
 - **Vision:** OpenCV, Pillow
-- **Training:** PyTorch (GPU via Google Colab)
+- **Training:** PyTorch (GPU via Google Colab T4)
 - **Language:** Python 3.10+
 
 ---
@@ -51,7 +42,7 @@ This work directly mirrors the technical approach of the EU STRUCTURE project, w
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/lakshan-d/bridge-defect-detector.git
+git clone https://github.com/Lakshan-D/bridge-defect-detector.git
 cd bridge-defect-detector
 ```
 
@@ -60,41 +51,24 @@ cd bridge-defect-detector
 pip install -r requirements.txt
 ```
 
-### 3. Run the app (base YOLOv8 weights)
+### 3. Run the app
 ```bash
 streamlit run app.py
 ```
 
-The app runs in your browser at `http://localhost:8501`. On first run it downloads base YOLOv8 weights automatically.
+The app runs in your browser at `http://localhost:8501`. Place fine-tuned weights in `models/bridge_defect_yolov8.pt` for best results.
 
 ---
 
-## Fine-tune on CODEBRIM (Recommended)
+## Training Your Own Model
 
-For best results, fine-tune on the real bridge defect dataset.
+Use the included Colab notebook `train_codebrim.ipynb` to fine-tune on your own dataset.
 
-### Step 1 — Download CODEBRIM
-```
-https://zenodo.org/record/2579133
-```
-Extract to a local folder, e.g. `/data/CODEBRIM_raw`.
-
-### Step 2 — Prepare dataset
-```bash
-python prepare_codebrim.py --src /data/CODEBRIM_raw
-```
-
-### Step 3 — Train
 ```bash
 python train.py
 ```
-Fine-tuned weights are saved automatically to `models/bridge_defect_yolov8.pt`.
 
-### Step 4 — Run app with fine-tuned weights
-```bash
-streamlit run app.py
-```
-The app detects `models/bridge_defect_yolov8.pt` and loads it automatically.
+Fine-tuned weights are saved automatically to `models/bridge_defect_yolov8.pt` and loaded by the app automatically.
 
 ---
 
@@ -104,15 +78,16 @@ The app detects `models/bridge_defect_yolov8.pt` and loads it automatically.
 bridge-defect-detector/
 ├── app.py                  # Streamlit web app
 ├── train.py                # YOLOv8 fine-tuning script
-├── prepare_codebrim.py     # Dataset conversion to YOLO format
+├── train_codebrim.ipynb    # Google Colab training notebook
+├── prepare_codebrim.py     # Dataset preparation script
 ├── requirements.txt
 ├── utils/
 │   ├── visualiser.py       # Bounding box drawing and annotation
 │   └── metrics.py          # Detection summary stats
 ├── models/
 │   └── .gitkeep            # Place fine-tuned .pt weights here
-└── data/
-    └── sample_images/      # Add sample bridge images for testing
+└── docs/
+    └── sample_detection.jpg
 ```
 
 ---
@@ -121,12 +96,15 @@ bridge-defect-detector/
 
 | Metric | Value |
 |---|---|
- | Dataset | Synthetic concrete crack dataset (1000 images) |
+| Dataset | Synthetic concrete crack dataset (1,000 images) |
 | Base Model | YOLOv8n |
 | Epochs | 50 |
 | Image Size | 640px |
-| mAP@0.5 | 0.991 (99.1%) | | mAP@0.5:0.95 | 0.920 (92.0%) | | Precision | 0.990 (99.0%) | | Recall | 0.952 (95.2%) |
-| Inference Speed | ~30ms/image (CPU) |
+| mAP@0.5 | **0.991 (99.1%)** |
+| mAP@0.5:0.95 | **0.920 (92.0%)** |
+| Precision | **0.990 (99.0%)** |
+| Recall | **0.952 (95.2%)** |
+| Inference Speed | ~7ms/image (T4 GPU) |
 
 ---
 
@@ -148,15 +126,7 @@ The same approach extends to the [MariSens](https://marisens-project.eu) project
 MSc Electronics & Electrical Engineering, Brunel University London
 Dissertation: *Autonomous UAV Infrastructure Inspection using LiDAR and YOLOv5*
 
-[GitHub](https://github.com/lakshan-d) | [LinkedIn](https://linkedin.com/in/lakshan-d) | [Email](mailto:lakshan.d.2108@gmail.com)
-
----
-
-## Dataset Credit
-
-Mundt, M., Majumder, S., Murali, S., Panetsos, P., & Ramesh, V. (2019).
-**Meta-learning convolutional neural architectures for multi-target concrete defect classification with the COncrete DEfect BRidge IMage dataset.**
-CVPR 2019. [Zenodo](https://zenodo.org/record/2579133)
+[GitHub](https://github.com/Lakshan-D) | [LinkedIn](https://linkedin.com/in/lakshan-d) | [Email](mailto:lakshan.d.2108@gmail.com)
 
 ---
 
