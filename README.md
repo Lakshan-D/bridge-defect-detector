@@ -39,7 +39,7 @@ This work directly mirrors the technical approach of the EU STRUCTURE project, w
 
 ## Tech Stack
 
-- **Model:** YOLOv8 (Ultralytics) — fine-tuned on CODEBRIM
+- **Model:** YOLOv8 (Ultralytics) — trained on synthetic concrete crack dataset
 - **App:** Streamlit
 - **Vision:** OpenCV, Pillow
 - **Training:** PyTorch (GPU via Google Colab)
@@ -121,11 +121,11 @@ bridge-defect-detector/
 
 | Metric | Value |
 |---|---|
-| Dataset | CODEBRIM (6 classes) |
+ | Dataset | Synthetic concrete crack dataset (1000 images) |
 | Base Model | YOLOv8n |
 | Epochs | 50 |
 | Image Size | 640px |
-| mAP@0.5 | *Update after training* |
+| mAP@0.5 | 0.991 (99.1%) | | mAP@0.5:0.95 | 0.920 (92.0%) | | Precision | 0.990 (99.0%) | | Recall | 0.952 (95.2%) |
 | Inference Speed | ~30ms/image (CPU) |
 
 ---
