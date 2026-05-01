@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+runs/
+data/codebrim/
+*.pt
+!models/.gitkeep
+*.mp4
+*.avi
+.DS_Store
+.streamlit/secrets.toml
