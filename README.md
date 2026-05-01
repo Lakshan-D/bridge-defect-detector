@@ -8,7 +8,7 @@
 
 > Upload a bridge inspection image or video. The system detects and localises defects in real time.
 
-![Sample Detection](docs/sample_detection.jpg)
+![Sample Detection](sample_detection.png)
 
 ---
 
